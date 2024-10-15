@@ -1,0 +1,12 @@
+We run each video through Whisper transcription 2-3 times and spot check the output to identify areas of missing speech, hallucinations, and other anomalies. Then we select the best and export into VTT format (common text format for subtitles that includes timestamps).
+
+Then we have a Ruby script we use to import the VTT transcript into Datavyu. We retain a copy of the original transcript in one column, while the transcribers manually clean up the transcript in another.
+--add in missing vocalizations (often from the baby)
+--correct timestamps for precision (Whisper does not identify each utterance rather opens a “window” of time then closes it when speech ends, so onsets are worse than offsets)
+--segment long sentences into unique utterances for coding
+--ix mistakes in speech accuracy
+--regularize output format (Whisper is not consistent in how mark things like sound effects, baby sounds, inaudible and the like in common formats, so it’s not possible to use scripts to convert all baby sounds into a certain code, for instance, as sometimes it will give [child crying] or **sound of fussiness** or <<baby>> or “whaa")
+--assign speaker (Whisper is horrible at speaker assignment and moving away from the camera, going to a different room, or singing all make it think there’s a new speaker; so we do even export speakers as it’s more work to fix)
+--manually add in transcription events that Whisper missed
+
+We run some scripts to check for consistency in assigning speaker codes, sound effects, common filler sound (mmhmm, oh), and other typos. Then a second person reviews the transcript to spot check for additional errors and ensure consistency.
